@@ -15,7 +15,7 @@ const authentication = require('./routes/authentication');
 const app = express();
 
 const corsOriginDevelopment = 'http://localhost:8080';
-const corsOriginProduction = 'https://whatpm.netlify.com';
+const corsOriginProduction = 'https://what.pm';
 
 app.use(cors({
   credentials: true,
