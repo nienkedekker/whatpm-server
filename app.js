@@ -13,9 +13,13 @@ const years = require('./routes/years');
 const authentication = require('./routes/authentication');
 
 const app = express();
+
+const corsOriginDevelopment = 'http://localhost:8080';
+const corsOriginProduction = 'https://whatpm.netlify.com';
+
 app.use(cors({
   credentials: true,
-  origin: 'https://whatpm.netlify.com'
+  origin: process.env.NODE_ENV === 'production' ? corsOriginProduction : corsOriginDevelopment
 }));
 
 const mongoDbUrl = process.env.MONGO_DB_URL;
