@@ -12,25 +12,25 @@ const router = express.Router();
  * When in production, registration is not possible, so return an error.
  */
 router.post('/register', function(req, res) {
-  // if (process.env.ENVIRONMENT == 'production') {
-  //   return res.status(403).send({success: false, message: 'Cannot register right now.'});
-  // } else {
-  if (!req.body.username || !req.body.password) {
-    return res.json({ success: false, message: 'Fill in the required fields.' });
+  if (process.env.ENVIRONMENT == 'production') {
+    return res.status(403).send({success: false, message: 'Cannot register right now.'});
   } else {
-    const newUser = new User({
-      username: req.body.username,
-      password: req.body.password,
-    });
+    if (!req.body.username || !req.body.password) {
+      return res.json({ success: false, message: 'Fill in the required fields.' });
+    } else {
+      const newUser = new User({
+        username: req.body.username,
+        password: req.body.password,
+      });
       // save the user
-    newUser.save(function(err) {
-      if (err) {
-        return res.status(401).send({ success: false, message: 'Registration failed. Try again.'});
-      }
-      return res.json({ success: true, message: 'Successfully created new user!' });
-    });
+      newUser.save(function(err) {
+        if (err) {
+          return res.status(401).send({ success: false, message: 'Registration failed. Try again.'});
+        }
+        return res.json({ success: true, message: 'Successfully created new user!' });
+      });
+    }
   }
-
 });
 
 /**
