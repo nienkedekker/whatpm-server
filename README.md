@@ -1,8 +1,13 @@
-## Server
-The server runs on Node (Express) and can be started by going to the `server` folder and running `npm run start`. It's deployed to Heroku. Production config vars are set on Heroku, not in `.env` files. For development, they are set in the .env file.
+# what.pm server
+## About
+The what.pm backend runs on Node (Express) and is deployed to Heroku. 
 
-## Client
-The client is a Vue-based app and uses Webpack. To start the frontend locally, run `npm run start`. To deploy to Zeit, run `npm run deploy-frontend`.
+## Development
+Required: Node, yarn, .env file.
 
-Docs:
-* https://zeit.co/docs/v2/deployments/official-builders/static-build-now-static-build/
+`yarn`
+
+`yarn dev`
+
+## Deployment
+Production config vars are set on Heroku, not in `.env` files. 
