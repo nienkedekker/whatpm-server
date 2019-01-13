@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const TVshow = require('../models/TVshow');
+const Show = require('../models/Show');
 const passport = require('passport');
 require('../authentication/passport')(passport);
 
@@ -9,9 +9,9 @@ require('../authentication/passport')(passport);
  * ex: host.com/api/tvshows
  */
 router.get('/', (req, res, next) => {
-  TVshow.find((err, tvshows) => {
+  Show.find((err, shows) => {
     if (err) return next(err);
-    res.json(tvshows);
+    res.json(shows);
   });
 });
 
@@ -20,9 +20,9 @@ router.get('/', (req, res, next) => {
  * ex: host.com/api/tvshows/123456
  */
 router.get('/:id', (req, res, next) => {
-  TVshow.findById(req.params.id, (err, tvshow) => {
+  Show.findById(req.params.id, (err, show) => {
     if (err) return next(err);
-    res.json(tvshow);
+    res.json(show);
   });
 });
 
@@ -31,9 +31,9 @@ router.get('/:id', (req, res, next) => {
  * ex: host.com/api/tvshows/year/2017
  */
 router.get('/year/:year', (req, res, next) => {
-  TVshow.find({'belongs_to_year': req.params.year }).sort('createdAt').find(function (err, tvshows) {
+  Show.find({'belongs_to_year': req.params.year }).sort('createdAt').find(function (err, shows) {
     if (err) return next(err);
-    res.json(tvshows);
+    res.json(shows);
   });
 });
 
@@ -43,9 +43,9 @@ router.get('/year/:year', (req, res, next) => {
  */
 router.post('/', passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
-    TVshow.create(req.body, (err, tvshow) => {
+    Show.create(req.body, (err, show) => {
       if (err) return next(err);
-      res.json(tvshow);
+      res.json(show);
     });
   },
 );
@@ -56,9 +56,9 @@ router.post('/', passport.authenticate('jwt', { session: false }),
  */
 router.put('/:id', passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
-    TVshow.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, function(err, tvshow) {
+    Show.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, function(err, show) {
       if (err) return next(err);
-      res.json(tvshow);
+      res.json(show);
     });
   },
 );
@@ -69,9 +69,9 @@ router.put('/:id', passport.authenticate('jwt', { session: false }),
  */
 router.delete('/:id', passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
-    TVshow.findByIdAndRemove(req.params.id, req.body, (err, tvshow) => {
+    Show.findByIdAndRemove(req.params.id, req.body, (err, show) => {
       if (err) return next(err);
-      res.json(tvshow);
+      res.json(show);
     });
   },
 );

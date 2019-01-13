@@ -8,7 +8,7 @@ const cors = require('cors');
 
 const books = require('./routes/books');
 const movies = require('./routes/movies');
-const tvshows = require('./routes/tvshows');
+const shows = require('./routes/shows');
 const years = require('./routes/years');
 const authentication = require('./routes/authentication');
 
@@ -50,13 +50,11 @@ app.use(logger('dev'));
 app.use('/api/authentication', authentication);
 app.use('/api/books', books);
 app.use('/api/movies', movies);
-app.use('/api/tvshows', tvshows);
+app.use('/api/shows', shows);
 app.use('/api/years', years);
 
 // When someone accesses the API directly via browser, don't show an error
 app.get('/', function(req, res) {
-  console.log(process.env.NODE_ENV);
-  console.log(process.env.TEST);
   res.end();
 });
 
