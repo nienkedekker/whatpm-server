@@ -1,6 +1,6 @@
 # what.pm server
 ## About
-The what.pm backend runs on Node (Express) and is deployed to Heroku. 
+The what.pm backend runs on Node (Express) and is deployed to Heroku by pushing to master (via GitHub).
 
 ## Development
 Required: Node, yarn, .env file.

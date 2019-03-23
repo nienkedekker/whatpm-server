@@ -11,6 +11,7 @@ const movies = require('./routes/movies');
 const shows = require('./routes/shows');
 const years = require('./routes/years');
 const authentication = require('./routes/authentication');
+const search = require('./routes/search');
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use(cors({
   origin: process.env.NODE_ENV === 'production' ? corsOriginProduction : corsOriginDevelopment
 }));
 
+// TODO: figure out a way to dynamically set the offline URL
+// something like process.env.NODE_ENV = 'offline'?
 const mongoDbUrl = process.env.MONGO_DB_URL;
 mongoose.Promise = require('bluebird');
 mongoose
@@ -52,6 +55,7 @@ app.use('/api/books', books);
 app.use('/api/movies', movies);
 app.use('/api/shows', shows);
 app.use('/api/years', years);
+app.use('/api/search', search);
 
 // When someone accesses the API directly via browser, don't show an error
 app.get('/', function(req, res) {
