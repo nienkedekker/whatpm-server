@@ -13,4 +13,8 @@ router.get('/:title', (req, res, next) => {
   searchByTitle(req, res, next);
 });
 
+router.get('/', (req, res) => {
+  res.end();
+});
+
 module.exports = router;
