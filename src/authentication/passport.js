@@ -9,9 +9,7 @@ const settings = require('./settings');
  * @param {object} req
  */
 const cookieExtractor = (req) => {
-  let token;
-  token = req && req.cookies ? req.cookies['mevn-token'] : null;
-  return token;
+  return req && req.cookies ? req.cookies['mevn-token'] : null;
 };
 
 /**
@@ -19,16 +17,16 @@ const cookieExtractor = (req) => {
  * @param {object} passport
  */
 const verify = (passport) => {
-  let options = {};
-
-  options.jwtFromRequest = ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderAsBearerToken(), cookieExtractor]);
-  options.secretOrKey = settings.secret;
+  const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderAsBearerToken(), cookieExtractor]),
+    secretOrKey: settings.secret
+  };
 
   /**
    * @param {object} jwtPayload
    * @param {function} verificationResult (error, user)
    */
-  passport.use(new JwtStrategy(options, (jwtPayload, verificationResult) => {
+  passport.use(new JwtStrategy(jwtOptions, (jwtPayload, verificationResult) => {
     User.findOne({ id: jwtPayload.id }, (error, user) => {
       if (error) {
         // verification not successful, error message is thrown

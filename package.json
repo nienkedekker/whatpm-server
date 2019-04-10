@@ -5,7 +5,7 @@
   "author": "Nienke Dekker <nienkedekker@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development nodemon ./bin/www",
+    "serve": "NODE_ENV=development nodemon ./bin/www",
     "start": "NODE_ENV=production node ./bin/www"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
+    "debug": "^4.1.1",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.3.0",
