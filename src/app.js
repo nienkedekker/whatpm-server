@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -23,8 +22,6 @@ app.use(cors({
   origin: process.env.NODE_ENV === 'production' ? corsOriginProduction : corsOriginDevelopment
 }));
 
-// TODO: figure out a way to dynamically set the offline URL
-// something like process.env.NODE_ENV = 'offline'?
 const mongoDbUrl = process.env.MONGO_DB_URL;
 mongoose.Promise = require('bluebird');
 mongoose
@@ -40,14 +37,9 @@ mongoose
   .then(() => console.log(` → Successful connection to MongoDB URL: ${process.env.MONGO_DB_URL}`))
   .catch(err => console.error(err));
 
-// Use bodyparser middleware
-// https://stackoverflow.com/a/47486182
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: 'false' }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-// Use Morgan for logging
-app.use(logger('dev'));
 
 // Set up routes
 app.use('/api/authentication', authentication);
@@ -58,28 +50,8 @@ app.use('/api/years', years);
 app.use('/api/search', search);
 
 // When someone accesses the API directly via browser, don't show an error
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.end();
-});
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-app.use(function(err, req, res) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  res.status(err.status || 500);
-  res.json({
-    message: err.message,
-    error: err
-  });
 });
 
 module.exports = app;
