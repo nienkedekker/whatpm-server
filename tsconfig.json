@@ -1,0 +1,18 @@
+{
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "target": "ES6",      
+    "typeRoots": [
+      "./node_modules/@types/"
+    ],
+    "module": "commonjs",                   
+    "allowJs": true, 
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,               
+    "removeComments": true,   
+    "allowSyntheticDefaultImports": true, 
+    "esModuleInterop": true                   
+  }
+}

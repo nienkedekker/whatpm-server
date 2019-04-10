@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-function range(start, end) {
+function range(start: number, end: number) {
   return Array(end - start + 1)
     .fill()
-    .map((value, index) => start + index);
+    .map((value: any, index: number) => start + index);
 }
 
 function getCurrentYear() {
@@ -27,7 +27,6 @@ mongoose.model('Item', new Schema({
   },
   redo: { type: Boolean, required: false, default: false },
   updated_date: { type: Date, default: Date.now },
-}, baseOptions),
-);
+}, baseOptions));
 
-module.exports = mongoose.model('Item');
+export default mongoose.model('Item');

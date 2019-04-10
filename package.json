@@ -5,11 +5,16 @@
   "author": "Nienke Dekker <nienkedekker@gmail.com>",
   "private": true,
   "scripts": {
+    "build": "tsc -p tsconfig.json",
     "dev": "NODE_ENV=development nodemon ./bin/www",
     "start": "NODE_ENV=production node ./bin/www"
   },
   "dependencies": {
-    "async": "^2.6.1",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/express": "^4.16.1",
+    "@types/morgan": "^1.7.35",
+    "@types/passport-strategy": "^0.2.35",
+    "async": "^2.6.2",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
@@ -17,15 +22,24 @@
     "cors": "^2.8.4",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.3.2",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9",
     "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.4.3"
   },
   "devDependencies": {
-    "eslint": "^5.12.0"
+    "@types/bcrypt-nodejs": "0.0.30",
+    "@types/cors": "^2.8.4",
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/mongoose": "^5.3.25",
+    "@types/passport": "^1.0.0",
+    "@types/passport-jwt": "^3.0.1",
+    "eslint": "^5.12.0",
+    "tsconfig-paths": "^3.8.0"
   },
   "engines": {
     "node": ">= 6.0.0",

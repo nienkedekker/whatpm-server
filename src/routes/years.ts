@@ -33,4 +33,4 @@ router.get('/year/:year', (req, res, next) => {
   getAllitemsByYear(req, res, next);
 });
 
-module.exports = router;
+export default router;

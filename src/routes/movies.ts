@@ -1,79 +1,79 @@
 const express = require('express');
 const router = express.Router();
-const Show = require('../models/Show');
+const Movie = require('../models/Movie.js');
 const passport = require('passport');
 require('../authentication/passport')(passport);
 
 /**
- * GET all TV shows
- * ex: host.com/api/tvshows
+ * GET all movies
+ * ex: host.com/api/movies
  */
 router.get('/', (req, res, next) => {
-  Show.find((err, shows) => {
+  Movie.find((err, movies) => {
     if (err) return next(err);
-    res.json(shows);
+    res.json(movies);
   });
 });
 
 /**
- * GET a single TV show by ID
- * ex: host.com/api/tvshows/123456
+ * GET a single movie by ID
+ * ex: host.com/api/movies/123456
  */
 router.get('/:id', (req, res, next) => {
-  Show.findById(req.params.id, (err, show) => {
+  Movie.findById(req.params.id, (err, movie) => {
     if (err) return next(err);
-    res.json(show);
+    res.json(movie);
   });
 });
 
 /**
- * GET all TV shows belonging to a given year
- * ex: host.com/api/tvshows/year/2017
+ * GET all movies belonging to a given year
+ * ex: host.com/api/movies/year/2017
  */
 router.get('/year/:year', (req, res, next) => {
-  Show.find({'belongs_to_year': req.params.year }).sort('createdAt').find(function (err, shows) {
+  Movie.find({'belongs_to_year': req.params.year }).sort('createdAt').find(function (err, movies) {
     if (err) return next(err);
-    res.json(shows);
+    res.json(movies);
   });
 });
 
 /**
- * Create a new TV show
+ * Create a new movie
  * Authenticated requests only
  */
 router.post('/', passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
-    Show.create(req.body, (err, show) => {
+    Movie.create(req.body, (err, movie) => {
       if (err) return next(err);
-      res.json(show);
+      res.json(movie);
     });
   },
 );
 
 /**
- * Update an existing TV show by ID
+ * Update an existing movie by ID
  * Authenticated requests only
  */
 router.put('/:id', passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
-    Show.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, function(err, show) {
+    Movie.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, function(err, movie) {
       if (err) return next(err);
-      res.json(show);
+      res.json(movie);
     });
   },
 );
 
 /**
- * Delete an existing TV show by ID
+ * Delete an existing movie by ID
  * Authenticated requests only
  */
 router.delete('/:id', passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
-    Show.findByIdAndRemove(req.params.id, req.body, (err, show) => {
+    Movie.findByIdAndRemove(req.params.id, req.body, (err, movie) => {
       if (err) return next(err);
-      res.json(show);
+      res.json(movie);
     });
   },
 );
 
-module.exports = router;
+export default router;
