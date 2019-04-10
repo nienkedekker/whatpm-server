@@ -1,8 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt-nodejs');
+const mongoose_1 = __importDefault(require("mongoose"));
+const Schema = mongoose_1.default.Schema;
+const bcrypt_nodejs_1 = __importDefault(require("bcrypt-nodejs"));
 const UserSchema = new Schema({
     username: {
         type: String,
@@ -17,11 +20,11 @@ const UserSchema = new Schema({
 UserSchema.pre('save', function (next) {
     const user = this;
     if (user.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, function (err, salt) {
+        bcrypt_nodejs_1.default.genSalt(10, function (err, salt) {
             if (err) {
                 return next(err);
             }
-            bcrypt.hash(user.password, salt, null, function (err, hash) {
+            bcrypt_nodejs_1.default.hash(user.password, salt, null, function (err, hash) {
                 if (err) {
                     return next(err);
                 }
@@ -35,11 +38,11 @@ UserSchema.pre('save', function (next) {
     }
 });
 UserSchema.methods.comparePassword = function (password, cb) {
-    bcrypt.compare(password, this.password, function (err, isMatch) {
+    bcrypt_nodejs_1.default.compare(password, this.password, function (err, isMatch) {
         if (err) {
             return cb(err);
         }
         cb(null, isMatch);
     });
 };
-exports.default = mongoose.model('User', UserSchema);
+exports.default = mongoose_1.default.model('User', UserSchema);

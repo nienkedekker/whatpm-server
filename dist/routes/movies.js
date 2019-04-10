@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require('express');
 const router = express.Router();
-const Movie = require('../models/Movie.js');
+const Movie = require('../models/Movie');
 const passport = require('passport');
 require('../authentication/passport')(passport);
 router.get('/', (req, res, next) => {

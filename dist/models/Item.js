@@ -1,10 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+const mongoose_1 = __importDefault(require("mongoose"));
+let Schema = mongoose_1.default.Schema;
 function range(start, end) {
     return Array(end - start + 1)
-        .fill()
         .map((value, index) => start + index);
 }
 function getCurrentYear() {
@@ -15,7 +17,7 @@ const baseOptions = {
     collection: 'items',
     timestamps: {},
 };
-mongoose.model('Item', new Schema({
+mongoose_1.default.model('Item', new Schema({
     title: { type: String, required: true },
     published_year: { type: Number, required: true },
     belongs_to_year: {
@@ -26,4 +28,4 @@ mongoose.model('Item', new Schema({
     redo: { type: Boolean, required: false, default: false },
     updated_date: { type: Date, default: Date.now },
 }, baseOptions));
-exports.default = mongoose.model('Item');
+exports.default = mongoose_1.default.model('Item');

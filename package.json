@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "NODE_ENV=development nodemon ./bin/www",
-    "start": "NODE_ENV=production node ./bin/www"
+    "start": "NODE_ENV=production node ./bin/www",
+    "prod": "tsc -p tsconfig.json && NODE_ENV=production node ./bin/www"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.1",

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require('express');
 const router = express.Router();
-const Item = require('../models/Item.js');
+const Item = require('../models/Item');
 const searchByQuery = (req, res, next) => {
     Item.find({ $text: { $search: req.params.query } }).sort('createdAt').find(function (err, items) {
         if (err)
