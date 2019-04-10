@@ -12,25 +12,25 @@ const router = express.Router();
  * returns all books, movies and tv shows from that year
  * cb (callback) is required for async pkg
  */
-const getAllitemsByYear = (req: { params: { year: any; }; }, res: { json: (arg0: any) => void; }, next: (arg0: any) => void) =>  {
+const getAllitemsByYear = (req, res, next) =>  {
   async.parallel({
-    'allMovies': (cb: any) => {
+    'allMovies': (cb) => {
       Movie.find({'belongs_to_year': req.params.year }, cb).sort('createdAt');
     },
-    'allBooks': (cb: any) => {
+    'allBooks': (cb) => {
       Book.find({'belongs_to_year': req.params.year }, cb).sort('createdAt');
     },
-    'allShows': (cb: any) => {
+    'allShows': (cb) => {
       Show.find({'belongs_to_year': req.params.year }, cb).sort('createdAt');
     },
   },
-  (err: any, allItems: any) => {
+  (err, allItems) => {
     if (err) return next(err);
     res.json(allItems);
   });
 };
 
-router.get('/year/:year', (req: { params: { year: any; }; }, res: { json: (arg0: any) => void; }, next: (arg0: any) => void) => {
+router.get('/year/:year', (req, res, next) => {
   getAllitemsByYear(req, res, next);
 });
 

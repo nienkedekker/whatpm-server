@@ -13,6 +13,7 @@
     "experimentalDecorators": true,               
     "removeComments": true,   
     "allowSyntheticDefaultImports": true, 
-    "esModuleInterop": true                   
+    "esModuleInterop": true,
+    "noImplicitAny": true            
   }
 }

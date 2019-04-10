@@ -3,7 +3,7 @@ let Schema = mongoose.Schema;
 
 function range(start: number, end: number) {
   return Array(end - start + 1)
-    // .fill()
+    .fill()
     .map((value: any, index: number) => start + index);
 }
 
