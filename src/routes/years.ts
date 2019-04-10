@@ -1,9 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const Movie = require('../models/Movie.js');
-const Book = require('../models/Book.js');
-const Show = require('../models/Show.js');
+import express from 'express';
+import Movie from '../models/Movie';
+import Book from '../models/Book';
+import Show from '../models/Show';
+
 const async = require('async');
+const router = express.Router();
 
 /**
  * GET all items by year
@@ -11,25 +12,25 @@ const async = require('async');
  * returns all books, movies and tv shows from that year
  * cb (callback) is required for async pkg
  */
-const getAllitemsByYear = (req, res, next) =>  {
+const getAllitemsByYear = (req: { params: { year: any; }; }, res: { json: (arg0: any) => void; }, next: (arg0: any) => void) =>  {
   async.parallel({
-    'allMovies': (cb) => {
+    'allMovies': (cb: any) => {
       Movie.find({'belongs_to_year': req.params.year }, cb).sort('createdAt');
     },
-    'allBooks': (cb) => {
+    'allBooks': (cb: any) => {
       Book.find({'belongs_to_year': req.params.year }, cb).sort('createdAt');
     },
-    'allShows': (cb) => {
+    'allShows': (cb: any) => {
       Show.find({'belongs_to_year': req.params.year }, cb).sort('createdAt');
     },
   },
-  (err, allItems) => {
+  (err: any, allItems: any) => {
     if (err) return next(err);
     res.json(allItems);
   });
 };
 
-router.get('/year/:year', (req, res, next) => {
+router.get('/year/:year', (req: { params: { year: any; }; }, res: { json: (arg0: any) => void; }, next: (arg0: any) => void) => {
   getAllitemsByYear(req, res, next);
 });
 

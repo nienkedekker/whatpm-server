@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import Book from '../models/Book.js';
+import Book from '../models/Book';
 import passport from 'passport';
 require('../authentication/passport')(passport);
 
@@ -43,7 +43,7 @@ router.get('/year/:year', (req, res, next) => {
  */
 router.post('/', passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
-    Book.create(req.body, (err, book) => {
+    Book.create(req.body, (err: any, book: any) => {
       if (err) return next(err);
       res.json(book);
     });

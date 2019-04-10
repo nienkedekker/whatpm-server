@@ -1,12 +1,11 @@
-const express = require('express');
-const passport = require('passport');
+import express from 'express';
+import passport from 'passport';
 const settings = require('../authentication/settings');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import jwt from 'jsonwebtoken';
+import User from '../models/User';
 require('../authentication/passport')(passport);
 
 const router = express.Router();
-
 /**
  * POST /register route.
  * When in production, registration is not possible, so return an error.
@@ -23,7 +22,7 @@ router.post('/register', function(req, res) {
         password: req.body.password,
       });
       // save the user
-      newUser.save(function(err) {
+      newUser.save(function(err: any) {
         if (err) {
           return res.status(401).send({ success: false, message: 'Registration failed. Try again.'});
         }
@@ -41,7 +40,7 @@ router.post('/register', function(req, res) {
  * but because JWT Tokens are only base64 encoded, this would potentially expose sensitive information to bad actors.
  */
 router.post('/login', function(req, res) {
-  User.findOne({ username: req.body.username }, function(err, user) {
+  User.findOne({ username: req.body.username }, function(err: any, user: { comparePassword: (arg0: any, arg1: (err: any, isMatch: any) => void) => void; _id: any; }) {
     if (err) { return res.json({ success: false, message: 'Login failed.' }); }
     if (!user) { res.status(401).send({ success: false, message: 'Login failed.'}); }
     else {

@@ -1,14 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const Show = require('../models/Show');
-const passport = require('passport');
+import express from 'express';
+import Show from '../models/Show';
+import passport from 'passport';
+
 require('../authentication/passport')(passport);
+const router = express.Router();
 
 /**
  * GET all TV shows
  * ex: host.com/api/tvshows
  */
-router.get('/', (req, res, next) => {
+router.get('/', (res: any, next: any) => {
   Show.find((err, shows) => {
     if (err) return next(err);
     res.json(shows);
@@ -43,7 +44,7 @@ router.get('/year/:year', (req, res, next) => {
  */
 router.post('/', passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
-    Show.create(req.body, (err, show) => {
+    Show.create(req.body, (err: any, show: any) => {
       if (err) return next(err);
       res.json(show);
     });
