@@ -5,7 +5,7 @@
   "author": "Nienke Dekker <nienkedekker@gmail.com>",
   "private": true,
   "scripts": {
-    "serve": "NODE_ENV=development nodemon ./bin/www",
+    "start:dev": "NODE_ENV=development nodemon ./bin/www",
     "start": "NODE_ENV=production node ./bin/www"
   },
   "dependencies": {

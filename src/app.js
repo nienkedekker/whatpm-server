@@ -11,6 +11,7 @@ const shows = require('./routes/shows');
 const years = require('./routes/years');
 const authentication = require('./routes/authentication');
 const search = require('./routes/search');
+const stats = require('./routes/stats');
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use('/api/movies', movies);
 app.use('/api/shows', shows);
 app.use('/api/years', years);
 app.use('/api/search', search);
+app.use('/api/stats', stats);
 
 // When someone accesses the API directly via browser, don't show an error
 app.get('/', (req, res) => {
