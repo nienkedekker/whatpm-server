@@ -1,13 +1,18 @@
-# what.pm server
-## About
-The what.pm backend runs on Node (Express) and is deployed to Heroku by pushing to master (via GitHub).
 
-## Development
-Required: Node, yarn, .env file.
+The backend for what.pm, running on Express and deployed to Heroku. It's a pretty straightforward API that uses Mongoose to talk to the MongoDB database, which is hosted on [mLab](https://mlab.com).
 
-`yarn`
+## Install locally
+### Clone
+First, clone the repo: 
+```
+git clone git@github.com:nienkedekker/whatpm-server.git
+```
 
-`yarn dev`
+### Install
+Then, install the dependencies by running `yarn install`. You can use npm, but make sure to delete the `yarn.lock` file then.
 
-## Deployment
-Production config vars are set on Heroku, not in `.env` files. 
+### dotenv
+Open the repo in your favorite code editor and create a new file in the root called `.env`. Copy what's in `.env.dist`  and edit the values. For Mongo, you can either create an instance using mLab or use a local database - as long as the URL starts with `mongodb://` you're good :)
+
+### Run
+Run the project with `yarn start:dev` and go to `localhost:3000`. This is the URL you can use when [running the frontend](https://github.com/nienkedekker/whatpm-client#connect-to-the-server).
