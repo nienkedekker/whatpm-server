@@ -5,10 +5,14 @@
   "author": "Nienke Dekker <nienkedekker@gmail.com>",
   "private": true,
   "scripts": {
-    "start:dev": "NODE_ENV=development nodemon ./bin/www",
-    "start": "NODE_ENV=production node ./bin/www"
+    "start:dev": "NODE_ENV=development nodemon --exec babel-node src/bin/www",
+    "start": "NODE_ENV=production npm-run-all clean build server:prod",
+    "server:prod": "node ./dist/bin/www",
+    "clean": "rimraf dist",
+    "build": "babel ./src --out-dir dist"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.7.0",
     "async": "^2.6.1",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.5.2",
@@ -19,17 +23,21 @@
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.3.2",
+    "mongoose": ">=5.7.5",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9",
+    "npm-run-all": "^4.1.5",
     "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "rimraf": "^3.0.0"
   },
   "devDependencies": {
-    "eslint": "^5.12.0"
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "eslint": "^6.6.0"
   },
   "engines": {
-    "node": ">= 6.0.0",
-    "npm": ">= 3.0.0"
+    "node": "~10.15.3"
   }
 }

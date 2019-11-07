@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-const app = require('../src/app');
-const debug = require('debug')('http');
-const http = require('http');
+import app from '../app.js';
+import debugLib from 'debug';
+import http from 'http';
+const debug = debugLib('whatpm:server');
 require('dotenv').config();
 
 const normalizePort = (value) => {

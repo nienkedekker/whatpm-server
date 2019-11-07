@@ -9,10 +9,10 @@ git clone git@github.com:nienkedekker/whatpm-server.git
 ```
 
 ### Install
-Then, install the dependencies by running `yarn install`. You can use npm, but make sure to delete the `yarn.lock` file then.
+Then, install the dependencies by running `npm install`. You can use npm, but make sure to delete the `package-lock.lock` file then.
 
 ### dotenv
 Open the repo in your favorite code editor and create a new file in the root called `.env`. Copy what's in `.env.dist`  and edit the values. For Mongo, you can either create an instance using mLab or use a local database - as long as the URL starts with `mongodb://` you're good :)
 
 ### Run
-Run the project with `yarn start:dev` and go to `localhost:3000`. This is the URL you can use when [running the frontend](https://github.com/nienkedekker/whatpm-client#connect-to-the-server).
+Run the project with `npm run start:dev` and go to `localhost:3000`. This is the URL you can use when [running the frontend](https://github.com/nienkedekker/whatpm-client#connect-to-the-server).
