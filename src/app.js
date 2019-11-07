@@ -1,17 +1,17 @@
 require('dotenv').config();
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
-const books = require('./routes/books');
-const movies = require('./routes/movies');
-const shows = require('./routes/shows');
-const years = require('./routes/years');
-const authentication = require('./routes/authentication');
-const search = require('./routes/search');
-const stats = require('./routes/stats');
+import books from './routes/books';
+import movies from './routes/movies';
+import shows from './routes/shows';
+import years from './routes/years';
+import authentication from './routes/authentication';
+import search from './routes/search';
+import stats from './routes/stats';
 
 const app = express();
 
@@ -56,4 +56,4 @@ app.get('/', (req, res) => {
   res.end();
 });
 
-module.exports = app;
+export default app;
