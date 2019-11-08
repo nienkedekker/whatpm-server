@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-function range(start, end) {
+export function range(start, end) {
   return Array(end - start + 1)
     .fill()
     .map((value, index) => start + index);

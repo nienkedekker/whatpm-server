@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-expressions */
+
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import Movie from '../Movie.js';
+import Movie from '../Movie';
 
 describe('Model: Movie', () => {
   const defaultOptions = {
