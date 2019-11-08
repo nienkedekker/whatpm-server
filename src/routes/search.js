@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import Item from '../models/Item.js';
+
 const router = express.Router();
-const Item = require('../models/Item.js');
 
 const searchByQuery = (req, res, next) =>  {
   Item.find({$text: {$search: req.params.query }}).sort('createdAt').find(function (err, items) {
@@ -17,4 +18,4 @@ router.get('/', (req, res) => {
   res.end();
 });
 
-module.exports = router;
+export default router;

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Item = require('./Item');
+import mongoose from 'mongoose';
+import Item from './Item';
 
 Item.discriminator('Movie', new mongoose.Schema({
   director: { type: String, required: true },

@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express';
+import Book from '../models/Book.js';
+import Show from '../models/Show.js';
+import Movie from '../models/Movie.js';
+import async from 'async';
+
 const router = express.Router();
-const Book = require('../models/Book.js');
-const Show = require('../models/Show.js');
-const Movie = require('../models/Movie.js');
-const async = require('async');
 
 /**
 * GET amount of items logged by year
@@ -58,4 +59,4 @@ router.get('/count/:year/all', (req, res, next) => {
   getCountOfAllItemsByYear(req, res, next);
 });
 
-module.exports = router;
+export default router;

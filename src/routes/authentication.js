@@ -1,8 +1,8 @@
-const express = require('express');
-const passport = require('passport');
-const settings = require('../authentication/settings');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import express from 'express';
+import passport from 'passport';
+import settings from '../authentication/settings';
+import jwt from 'jsonwebtoken';
+import User from '../models/User';
 require('../authentication/passport')(passport);
 
 const router = express.Router();
@@ -12,7 +12,7 @@ const router = express.Router();
  * When in production, registration is not possible, so return an error.
  */
 router.post('/register', function(req, res) {
-  if (process.env.ENVIRONMENT == 'production') {
+  if (process.env.ENVIRONMENT === 'production') {
     return res.status(403).send({success: false, message: 'Cannot register right now.'});
   } else {
     if (!req.body.username || !req.body.password) {
@@ -60,4 +60,4 @@ router.post('/login', function(req, res) {
   });
 });
 
-module.exports = router;
+export default router;

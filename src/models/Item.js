@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
 function range(start, end) {
   return Array(end - start + 1)
@@ -30,4 +30,4 @@ mongoose.model('Item', new Schema({
 }, baseOptions),
 );
 
-module.exports = mongoose.model('Item');
+export default mongoose.model('Item');

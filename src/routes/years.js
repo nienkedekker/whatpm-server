@@ -1,9 +1,11 @@
-const express = require('express');
+import express from 'express';
+import async from 'async';
+
+import Book from '../models/Book.js';
+import Show from '../models/Show.js';
+import Movie from '../models/Movie.js';
+
 const router = express.Router();
-const Movie = require('../models/Movie.js');
-const Book = require('../models/Book.js');
-const Show = require('../models/Show.js');
-const async = require('async');
 
 /**
  * GET all items by year
@@ -33,4 +35,4 @@ router.get('/year/:year', (req, res, next) => {
   getAllitemsByYear(req, res, next);
 });
 
-module.exports = router;
+export default router;

@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const Show = require('../models/Show');
-const passport = require('passport');
+import express from 'express';
+import passport from 'passport';
+import Show from '../models/Show';
 require('../authentication/passport')(passport);
+
+const router = express.Router();
 
 /**
  * GET all TV shows
@@ -76,4 +77,4 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),
   },
 );
 
-module.exports = router;
+export default router;

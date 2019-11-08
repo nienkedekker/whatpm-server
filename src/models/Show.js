@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import Item from './Item';
 
-const Item = require('./Item');
 Item.discriminator('Show', new mongoose.Schema({
   season: { type: Number, required: true },
 }),

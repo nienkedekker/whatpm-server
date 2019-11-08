@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const Book = require('../models/Book.js');
-const passport = require('passport');
+import express from 'express';
+import passport from 'passport';
+import Book from '../models/Book.js';
 require('../authentication/passport')(passport);
+
+const router = express.Router();
 
 /**
  * GET all books
@@ -76,4 +77,4 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),
   },
 );
 
-module.exports = router;
+export default router;
