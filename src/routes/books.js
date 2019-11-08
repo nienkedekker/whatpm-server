@@ -1,6 +1,11 @@
+// TODO: fix linting errors
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
+
 import express from 'express';
 import passport from 'passport';
-import Book from '../models/Book.js';
+import Book from '../models/Book';
+
 require('../authentication/passport')(passport);
 
 const router = express.Router();
@@ -32,7 +37,7 @@ router.get('/:id', (req, res, next) => {
  * ex: host.com/api/books/year/2017
  */
 router.get('/year/:year', (req, res, next) => {
-  Book.find({'belongs_to_year': req.params.year }).sort('createdAt').find(function (err, books) {
+  Book.find({ belongs_to_year: req.params.year }).sort('createdAt').find((err, books) => {
     if (err) return next(err);
     res.json(books);
   });
@@ -48,8 +53,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
       if (err) return next(err);
       res.json(book);
     });
-  },
-);
+  });
 
 /**
  * Update an existing book by ID
@@ -61,8 +65,7 @@ router.put('/:id', passport.authenticate('jwt', { session: false }),
       if (err) return next(err);
       res.json(book);
     });
-  },
-);
+  });
 
 /**
  * Delete an existing book by ID
@@ -74,7 +77,6 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),
       if (err) return next(err);
       res.json(book);
     });
-  },
-);
+  });
 
 export default router;

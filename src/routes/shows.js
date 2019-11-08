@@ -1,6 +1,11 @@
+// TODO: fix linting errors
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
+
 import express from 'express';
 import passport from 'passport';
 import Show from '../models/Show';
+
 require('../authentication/passport')(passport);
 
 const router = express.Router();
@@ -32,7 +37,7 @@ router.get('/:id', (req, res, next) => {
  * ex: host.com/api/tvshows/year/2017
  */
 router.get('/year/:year', (req, res, next) => {
-  Show.find({'belongs_to_year': req.params.year }).sort('createdAt').find(function (err, shows) {
+  Show.find({ belongs_to_year: req.params.year }).sort('createdAt').find((err, shows) => {
     if (err) return next(err);
     res.json(shows);
   });
@@ -48,8 +53,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
       if (err) return next(err);
       res.json(show);
     });
-  },
-);
+  });
 
 /**
  * Update an existing TV show by ID
@@ -57,12 +61,11 @@ router.post('/', passport.authenticate('jwt', { session: false }),
  */
 router.put('/:id', passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
-    Show.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, function(err, show) {
+    Show.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, (err, show) => {
       if (err) return next(err);
       res.json(show);
     });
-  },
-);
+  });
 
 /**
  * Delete an existing TV show by ID
@@ -74,7 +77,6 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),
       if (err) return next(err);
       res.json(show);
     });
-  },
-);
+  });
 
 export default router;

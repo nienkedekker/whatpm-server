@@ -1,4 +1,3 @@
-require('dotenv').config();
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -13,6 +12,8 @@ import authentication from './routes/authentication';
 import search from './routes/search';
 import stats from './routes/stats';
 
+require('dotenv').config();
+
 const app = express();
 
 const corsOriginDevelopment = 'http://localhost:8080';
@@ -20,11 +21,12 @@ const corsOriginProduction = 'https://what.pm';
 
 app.use(cors({
   credentials: true,
-  origin: process.env.NODE_ENV === 'production' ? corsOriginProduction : corsOriginDevelopment
+  origin: process.env.NODE_ENV === 'production' ? corsOriginProduction : corsOriginDevelopment,
 }));
 
 const mongoDbUrl = process.env.MONGO_DB_URL;
 mongoose.Promise = require('bluebird');
+
 mongoose
   .connect(
     mongoDbUrl,
@@ -33,11 +35,12 @@ mongoose
       useFindAndModify: false,
       useCreateIndex: true,
       useUnifiedTopology: true,
-      promiseLibrary: require('bluebird')
-    }
+      // eslint-disable-next-line global-require
+      promiseLibrary: require('bluebird'),
+    },
   )
   .then(() => console.log(` → Successful connection to MongoDB URL: ${process.env.MONGO_DB_URL}`))
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

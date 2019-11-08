@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 function range(start, end) {
   return Array(end - start + 1)
@@ -24,11 +25,10 @@ mongoose.model('Item', new Schema({
   belongs_to_year: {
     type: String,
     required: true,
-    enum: [...range(2007, getCurrentYear())]
+    enum: [...range(2007, getCurrentYear())],
   },
   redo: { type: Boolean, required: false, default: false },
   updated_date: { type: Date, default: Date.now },
-}, baseOptions),
-);
+}, baseOptions));
 
 export default mongoose.model('Item');

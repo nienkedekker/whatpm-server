@@ -1,6 +1,11 @@
+// TODO: fix linting errors
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
+
 import express from 'express';
 import passport from 'passport';
-import Movie from '../models/Movie.js';
+import Movie from '../models/Movie';
+
 require('../authentication/passport')(passport);
 
 const router = express.Router();
@@ -32,7 +37,7 @@ router.get('/:id', (req, res, next) => {
  * ex: host.com/api/movies/year/2017
  */
 router.get('/year/:year', (req, res, next) => {
-  Movie.find({'belongs_to_year': req.params.year }).sort('createdAt').find(function (err, movies) {
+  Movie.find({ belongs_to_year: req.params.year }).sort('createdAt').find((err, movies) => {
     if (err) return next(err);
     res.json(movies);
   });
@@ -48,8 +53,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
       if (err) return next(err);
       res.json(movie);
     });
-  },
-);
+  });
 
 /**
  * Update an existing movie by ID
@@ -57,12 +61,11 @@ router.post('/', passport.authenticate('jwt', { session: false }),
  */
 router.put('/:id', passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
-    Movie.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, function(err, movie) {
+    Movie.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, (err, movie) => {
       if (err) return next(err);
       res.json(movie);
     });
-  },
-);
+  });
 
 /**
  * Delete an existing movie by ID
@@ -74,7 +77,6 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }),
       if (err) return next(err);
       res.json(movie);
     });
-  },
-);
+  });
 
 export default router;

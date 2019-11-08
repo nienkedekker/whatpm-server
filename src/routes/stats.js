@@ -1,8 +1,12 @@
+// TODO: fix linting errors
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
+
 import express from 'express';
-import Book from '../models/Book.js';
-import Show from '../models/Show.js';
-import Movie from '../models/Movie.js';
 import async from 'async';
+import Book from '../models/Book';
+import Show from '../models/Show';
+import Movie from '../models/Movie';
 
 const router = express.Router();
 
@@ -13,9 +17,9 @@ const router = express.Router();
 */
 const getCountOfAllItemsByYear = (req, res, next) => {
   async.parallel({
-    movies: cb => Movie.countDocuments({'belongs_to_year': req.params.year }, cb),
-    books: cb => Book.countDocuments({'belongs_to_year': req.params.year }, cb),
-    shows: cb => Show.countDocuments({'belongs_to_year': req.params.year }, cb),
+    movies: (cb) => Movie.countDocuments({ belongs_to_year: req.params.year }, cb),
+    books: (cb) => Book.countDocuments({ belongs_to_year: req.params.year }, cb),
+    shows: (cb) => Show.countDocuments({ belongs_to_year: req.params.year }, cb),
   }, (err, items) => {
     if (err) return next(err);
     res.json({
@@ -32,9 +36,9 @@ const getCountOfAllItemsByYear = (req, res, next) => {
  */
 const getAllTimeCount = (req, res, next) => {
   async.parallel({
-    books: cb => Book.countDocuments({}, cb),
-    movies: cb => Movie.countDocuments({}, cb),
-    shows: cb => Show.countDocuments({}, cb),
+    books: (cb) => Book.countDocuments({}, cb),
+    movies: (cb) => Movie.countDocuments({}, cb),
+    shows: (cb) => Show.countDocuments({}, cb),
   }, (err, items) => {
     if (err) return next(err);
     res.json({
