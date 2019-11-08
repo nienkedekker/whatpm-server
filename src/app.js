@@ -32,6 +32,7 @@ mongoose
       useNewUrlParser: true,
       useFindAndModify: false,
       useCreateIndex: true,
+      useUnifiedTopology: true,
       promiseLibrary: require('bluebird')
     }
   )

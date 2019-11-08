@@ -20,6 +20,7 @@ const baseOptions = {
 mongoose.model('Item', new Schema({
   title: { type: String, required: true },
   published_year: { type: Number, required: true },
+  // this should be a Number ¯⁠\_(ツ)_/⁠¯
   belongs_to_year: {
     type: String,
     required: true,
