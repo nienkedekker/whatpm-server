@@ -8,8 +8,8 @@ export function range(start, end) {
     .map((value, index) => start + index);
 }
 
-function getCurrentYear() {
-  return new Date().getFullYear();
+export function getCurrentYear(date) {
+  return date.getFullYear();
 }
 
 const baseOptions = {
@@ -25,7 +25,7 @@ mongoose.model('Item', new Schema({
   belongs_to_year: {
     type: String,
     required: true,
-    enum: [...range(2007, getCurrentYear())],
+    enum: [...range(2007, getCurrentYear(new Date()))],
   },
   redo: { type: Boolean, required: false, default: false },
   updated_date: { type: Date, default: Date.now },
