@@ -1,11 +1,14 @@
 import mongoose from 'mongoose';
+import 'babel-polyfill';
 
 const { Schema } = mongoose;
 
-export function range(start, end) {
-  return Array(end - start + 1)
-    .fill()
-    .map((value, index) => start + index);
+// Source:
+// https://dev.to/ycmjason/how-to-create-range-in-javascript-539i
+export function* range(start, end) {
+  yield start;
+  if (start === end) return;
+  yield* range(start + 1, end);
 }
 
 export function getCurrentYear(date) {
@@ -21,9 +24,8 @@ const baseOptions = {
 mongoose.model('Item', new Schema({
   title: { type: String, required: true },
   published_year: { type: Number, required: true },
-  // this should be a Number ¯⁠\_(ツ)_/⁠¯
   belongs_to_year: {
-    type: String,
+    type: String, // this should be a Number ¯⁠\_(ツ)_/⁠¯
     required: true,
     enum: [...range(2007, getCurrentYear(new Date()))],
   },

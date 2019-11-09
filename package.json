@@ -17,6 +17,7 @@
     "@babel/polyfill": "^7.7.0",
     "@types/chai": "^4.2.4",
     "async": "^2.6.1",
+    "babel-polyfill": "^6.26.0",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
