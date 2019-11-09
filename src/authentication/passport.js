@@ -1,17 +1,16 @@
-require('dotenv').config();
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-import Settings from './settings.js';
+import Settings from './settings';
 
 import User from '../models/User';
+
+require('dotenv').config();
+const JwtStrategy = require('passport-jwt').Strategy;
+const { ExtractJwt } = require('passport-jwt');
 
 /**
  * Get cookie from client
  * @param {object} req
  */
-const cookieExtractor = (req) => {
-  return req && req.cookies ? req.cookies['mevn-token'] : null;
-};
+const cookieExtractor = (req) => (req && req.cookies ? req.cookies['mevn-token'] : null);
 
 /**
  * Verify request based on JWT obtained from cookie
@@ -20,7 +19,7 @@ const cookieExtractor = (req) => {
 const verify = (passport) => {
   const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderAsBearerToken(), cookieExtractor]),
-    secretOrKey: Settings.secret
+    secretOrKey: Settings.secret,
   };
 
   /**
@@ -28,11 +27,12 @@ const verify = (passport) => {
    * @param {function} verificationResult (error, user)
    */
   passport.use(new JwtStrategy(jwtOptions, (jwtPayload, verificationResult) => {
+    // eslint-disable-next-line consistent-return
     User.findOne({ id: jwtPayload.id }, (error, user) => {
       if (error) {
         // verification not successful, error message is thrown
         return verificationResult(error, false);
-      } else if (user) {
+      } if (user) {
         // verification successful
         verificationResult(null, user);
       } else {
