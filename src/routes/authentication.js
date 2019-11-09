@@ -1,6 +1,4 @@
-// TODO: fix linting errors
-/* eslint-disable consistent-return */
-/* eslint-disable no-shadow */
+/* eslint-disable no-underscore-dangle */
 
 import express from 'express';
 import passport from 'passport';
@@ -14,26 +12,54 @@ const router = express.Router();
 
 /**
  * POST /register route.
- * When in production, registration is not possible, so return an error.
  */
 router.post('/register', (req, res) => {
+  // When in production, registration is not possible, so return an error.
   if (process.env.ENVIRONMENT === 'production') {
-    return res.status(403).send({ success: false, message: 'Cannot register right now.' });
+    return res.status(403)
+      .send({
+        success: false,
+        message: 'Cannot register right now.',
+      });
   }
+
+  // A username or password is missing, so return an error
   if (!req.body.username || !req.body.password) {
-    return res.json({ success: false, message: 'Fill in the required fields.' });
+    return res.json({
+      success: false,
+      message: 'Fill in the required fields.',
+    });
   }
+
+  // No registration errors, so create a new User
   const newUser = new User({
     username: req.body.username,
     password: req.body.password,
   });
-  // save the user
+
+  // Save the user
   newUser.save((err) => {
     if (err) {
-      return res.status(401).send({ success: false, message: 'Registration failed. Try again.' });
+      // Error upon saving
+      return res.status(401)
+        .send({
+          success: false,
+          message: 'Registration failed. Try again.',
+        });
     }
-    return res.json({ success: true, message: 'Successfully created new user!' });
+    // No error, we have a new user
+    return res.json({
+      success: true,
+      message: 'Successfully created new user!',
+    });
   });
+
+  // All other cases
+  return res.status(403)
+    .send({
+      success: false,
+      message: 'Cannot register right now.',
+    });
 });
 
 /**
@@ -47,21 +73,52 @@ router.post('/register', (req, res) => {
  */
 router.post('/login', (req, res) => {
   User.findOne({ username: req.body.username }, (err, user) => {
-    if (err) { return res.json({ success: false, message: 'Login failed.' }); }
-    if (!user) { res.status(401).send({ success: false, message: 'Login failed.' }); } else {
-      // check if password matches
-      user.comparePassword(req.body.password, (err, isMatch) => {
-        if (isMatch && !err) {
-          // eslint-disable-next-line no-underscore-dangle
+    // There's an unspecified error
+    if (err) {
+      return res.json({
+        success: false,
+        message: 'Login failed.',
+      });
+    }
+
+    // The user doesn't exist
+    if (!user) {
+      res.status(401)
+        .send({
+          success: false,
+          message: 'Login failed.',
+        });
+    }
+
+    // There's a user
+    if (user) {
+      // Check if password matches
+      user.comparePassword(req.body.password, (error, isMatch) => {
+        // There's a match and no error
+        if (isMatch && !error) {
           const userId = user._id;
           const tokenData = userId.toJSON();
-          const token = jwt.sign({ expiresIn: '7d', tokenData }, settings.secret);
+          const token = jwt.sign({
+            expiresIn: '7d',
+            tokenData,
+          }, settings.secret);
           res.send({ success: true, token });
         } else {
-          res.status(401).send({ success: false, message: 'Login failed.' });
+          res.status(401)
+            .send({
+              success: false,
+              message: 'Login failed.',
+            });
         }
       });
     }
+
+    // All other cases
+    return res.status(403)
+      .send({
+        success: false,
+        message: 'Cannot login right now.',
+      });
   });
 });
 
