@@ -88,10 +88,7 @@ router.post('/login', (req, res) => {
           success: false,
           message: 'Login failed.',
         });
-    }
-
-    // There's a user
-    if (user) {
+    } else {
       // Check if password matches
       user.comparePassword(req.body.password, (error, isMatch) => {
         // There's a match and no error
