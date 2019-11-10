@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-
+/* eslint-disable consistent-return */
 import express from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
@@ -53,13 +53,6 @@ router.post('/register', (req, res) => {
       message: 'Successfully created new user!',
     });
   });
-
-  // All other cases
-  return res.status(403)
-    .send({
-      success: false,
-      message: 'Cannot register right now.',
-    });
 });
 
 /**
@@ -109,13 +102,6 @@ router.post('/login', (req, res) => {
         }
       });
     }
-
-    // All other cases
-    return res.status(403)
-      .send({
-        success: false,
-        message: 'Cannot login right now.',
-      });
   });
 });
 
