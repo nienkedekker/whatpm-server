@@ -22,11 +22,12 @@ const baseOptions = {
 };
 
 mongoose.model('Item', new Schema({
-  title: { type: String, required: true },
-  published_year: { type: Number, required: true },
+  title: { type: String, required: true, text: true },
+  published_year: { type: Number, required: true, text: true },
   belongs_to_year: {
     type: String, // this should be a Number ¯⁠\_(ツ)_/⁠¯
     required: true,
+    text: true,
     enum: [...range(2007, getCurrentYear(new Date()))],
   },
   redo: { type: Boolean, required: false, default: false },
