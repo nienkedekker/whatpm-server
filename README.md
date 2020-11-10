@@ -1,5 +1,5 @@
 
-The backend for what.pm, running on Express and deployed to Heroku. It's a pretty straightforward API that uses Mongoose to talk to the MongoDB database, which is hosted on [mLab](https://mlab.com).
+The backend for what.pm, running on Express and deployed to Heroku. It's a pretty straightforward API that uses Mongoose to talk to the MongoDB database, which is hosted on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 
 ## Install locally
 ### Clone
