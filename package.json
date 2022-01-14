@@ -5,7 +5,7 @@
   "author": "Nienke Dekker <nienkedekker@gmail.com>",
   "private": true,
   "scripts": {
-    "start:dev": "NODE_ENV=development nodemon --exec babel-node ./src/bin/www.js",
+    "dev": "NODE_ENV=development nodemon --exec babel-node ./src/bin/www.js",
     "start": "NODE_ENV=production npm-run-all clean build server:prod",
     "test": "mocha --require @babel/register 'src/**/**test.js'",
     "server:prod": "node ./dist/bin/www",
@@ -52,6 +52,6 @@
     "webpack-cli": "^3.3.10"
   },
   "engines": {
-    "node": "~10.15.3"
+    "node": "~14.17.3"
   }
 }
