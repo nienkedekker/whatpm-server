@@ -47,36 +47,45 @@ router.get('/year/:year', (req, res, next) => {
  * Create a new book
  * Authenticated requests only
  */
-router.post('/', passport.authenticate('jwt', { session: false }),
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
     Book.create(req.body, (err, book) => {
       if (err) return next(err);
       res.json(book);
     });
-  });
+  },
+);
 
 /**
  * Update an existing book by ID
  * Authenticated requests only
  */
-router.put('/:id', passport.authenticate('jwt', { session: false }),
+router.put(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
     Book.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, (err, book) => {
       if (err) return next(err);
       res.json(book);
     });
-  });
+  },
+);
 
 /**
  * Delete an existing book by ID
  * Authenticated requests only
  */
-router.delete('/:id', passport.authenticate('jwt', { session: false }),
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
     Book.findByIdAndRemove(req.params.id, req.body, (err, book) => {
       if (err) return next(err);
       res.json(book);
     });
-  });
+  },
+);
 
 export default router;

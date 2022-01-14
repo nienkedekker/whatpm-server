@@ -47,36 +47,45 @@ router.get('/year/:year', (req, res, next) => {
  * Create a new TV show
  * Authenticated requests only
  */
-router.post('/', passport.authenticate('jwt', { session: false }),
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
     Show.create(req.body, (err, show) => {
       if (err) return next(err);
       res.json(show);
     });
-  });
+  },
+);
 
 /**
  * Update an existing TV show by ID
  * Authenticated requests only
  */
-router.put('/:id', passport.authenticate('jwt', { session: false }),
+router.put(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
     Show.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, (err, show) => {
       if (err) return next(err);
       res.json(show);
     });
-  });
+  },
+);
 
 /**
  * Delete an existing TV show by ID
  * Authenticated requests only
  */
-router.delete('/:id', passport.authenticate('jwt', { session: false }),
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
     Show.findByIdAndRemove(req.params.id, req.body, (err, show) => {
       if (err) return next(err);
       res.json(show);
     });
-  });
+  },
+);
 
 export default router;

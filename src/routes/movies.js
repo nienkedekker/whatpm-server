@@ -47,36 +47,45 @@ router.get('/year/:year', (req, res, next) => {
  * Create a new movie
  * Authenticated requests only
  */
-router.post('/', passport.authenticate('jwt', { session: false }),
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
     Movie.create(req.body, (err, movie) => {
       if (err) return next(err);
       res.json(movie);
     });
-  });
+  },
+);
 
 /**
  * Update an existing movie by ID
  * Authenticated requests only
  */
-router.put('/:id', passport.authenticate('jwt', { session: false }),
+router.put(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
     Movie.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, (err, movie) => {
       if (err) return next(err);
       res.json(movie);
     });
-  });
+  },
+);
 
 /**
  * Delete an existing movie by ID
  * Authenticated requests only
  */
-router.delete('/:id', passport.authenticate('jwt', { session: false }),
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
   (req, res, next) => {
     Movie.findByIdAndRemove(req.params.id, req.body, (err, movie) => {
       if (err) return next(err);
       res.json(movie);
     });
-  });
+  },
+);
 
 export default router;

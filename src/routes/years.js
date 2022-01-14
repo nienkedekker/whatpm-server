@@ -19,21 +19,23 @@ const router = express.Router();
  * cb (callback) is required for async pkg
  */
 const getAllitemsByYear = (req, res, next) => {
-  async.parallel({
-    'allMovies': (cb) => {
-      Movie.find({ 'belongs_to_year': req.params.year }, cb).sort('createdAt');
+  async.parallel(
+    {
+      'allMovies': (cb) => {
+        Movie.find({ 'belongs_to_year': req.params.year }, cb).sort('createdAt');
+      },
+      'allBooks': (cb) => {
+        Book.find({ 'belongs_to_year': req.params.year }, cb).sort('createdAt');
+      },
+      'allShows': (cb) => {
+        Show.find({ 'belongs_to_year': req.params.year }, cb).sort('createdAt');
+      },
     },
-    'allBooks': (cb) => {
-      Book.find({ 'belongs_to_year': req.params.year }, cb).sort('createdAt');
+    (err, allItems) => {
+      if (err) return next(err);
+      res.json(allItems);
     },
-    'allShows': (cb) => {
-      Show.find({ 'belongs_to_year': req.params.year }, cb).sort('createdAt');
-    },
-  },
-  (err, allItems) => {
-    if (err) return next(err);
-    res.json(allItems);
-  });
+  );
 };
 
 router.get('/year/:year', (req, res, next) => {
