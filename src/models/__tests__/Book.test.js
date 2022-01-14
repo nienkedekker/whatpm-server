@@ -1,23 +1,23 @@
 /* eslint-disable no-unused-expressions */
 
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
+import { expect } from "chai";
+import { describe, it } from "mocha";
 
-import Book from '../Book';
+import Book from "../Book";
 
-describe('Model: Book', () => {
+describe("Model: Book", () => {
   const defaultOptions = {
-    title: 'The Shining',
-    author: 'Stephen King',
+    title: "The Shining",
+    author: "Stephen King",
     published_year: 1977,
-    belongs_to_year: '2015',
+    belongs_to_year: "2015",
     redo: true,
   };
 
-  it('should be invalid if author is empty', (done) => {
+  it("should be invalid if author is empty", (done) => {
     const newBook = new Book({
       defaultOptions,
-      author: '',
+      author: "",
     });
     newBook.validate((err) => {
       expect(err.errors.author).to.exist;
@@ -25,10 +25,10 @@ describe('Model: Book', () => {
     });
   });
 
-  it('should be invalid when a key defined in the discriminator schema is passed incorrectly', (done) => {
+  it("should be invalid when a key defined in the discriminator schema is passed incorrectly", (done) => {
     const newBook = new Book({
       ...defaultOptions,
-      published_year: 'i-should-be-a-number',
+      published_year: "i-should-be-a-number",
     });
     newBook.validate((err) => {
       expect(err.errors).to.exist;
@@ -36,20 +36,20 @@ describe('Model: Book', () => {
     });
   });
 
-  it('should set the key value of author when given one', (done) => {
+  it("should set the key value of author when given one", (done) => {
     const newBook = new Book({
       ...defaultOptions,
     });
     newBook.validate(() => {
-      expect(newBook.author).to.equal('Stephen King');
+      expect(newBook.author).to.equal("Stephen King");
       done();
     });
   });
 
-  it('should be valid when a key not defined in the schema is passed', (done) => {
+  it("should be valid when a key not defined in the schema is passed", (done) => {
     const newBook = new Book({
       ...defaultOptions,
-      notHere: '',
+      notHere: "",
     });
     newBook.validate(() => {
       expect(newBook.notHere).to.not.exist;
@@ -57,10 +57,10 @@ describe('Model: Book', () => {
     });
   });
 
-  it('should be invalid when a key defined in the discriminator schema is passed incorrectly', (done) => {
+  it("should be invalid when a key defined in the discriminator schema is passed incorrectly", (done) => {
     const newBook = new Book({
       ...defaultOptions,
-      published_year: 'i-should-be-a-number',
+      published_year: "i-should-be-a-number",
     });
     newBook.validate((err) => {
       expect(err.errors).to.exist;

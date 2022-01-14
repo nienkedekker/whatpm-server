@@ -1,3 +1,4 @@
+import "@babel/polyfill";
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
@@ -34,19 +35,8 @@ const mongoDbUrl = process.env.MONGO_DB_URL;
 mongoose.Promise = require("bluebird");
 
 mongoose
-  .connect(mongoDbUrl, {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    // eslint-disable-next-line global-require
-    promiseLibrary: require("bluebird"),
-  })
-  .then(() =>
-    console.log(
-      ` → Successful connection to MongoDB URL: ${process.env.MONGO_DB_URL}`
-    )
-  )
+  .connect(mongoDbUrl)
+  .then(() => console.log(" → Successful connection to MongoDB."))
   .catch((err) => console.error(err));
 
 app.use(bodyParser.json());

@@ -1,7 +1,3 @@
-// TODO: fix linting errors
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
-
 import express from "express";
 import passport from "passport";
 import Item from "../models/Item";
