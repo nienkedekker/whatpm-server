@@ -1,14 +1,9 @@
-// TODO: fix linting errors
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
-/* eslint-disable quote-props */
+import express from "express";
+import async from "async";
 
-import express from 'express';
-import async from 'async';
-
-import Book from '../models/Book';
-import Show from '../models/Show';
-import Movie from '../models/Movie';
+import Book from "../models/Book";
+import Show from "../models/Show";
+import Movie from "../models/Movie";
 
 const router = express.Router();
 
@@ -21,24 +16,24 @@ const router = express.Router();
 const getAllitemsByYear = (req, res, next) => {
   async.parallel(
     {
-      'allMovies': (cb) => {
-        Movie.find({ 'belongs_to_year': req.params.year }, cb).sort('createdAt');
+      allMovies: (cb) => {
+        Movie.find({ belongs_to_year: req.params.year }, cb).sort("createdAt");
       },
-      'allBooks': (cb) => {
-        Book.find({ 'belongs_to_year': req.params.year }, cb).sort('createdAt');
+      allBooks: (cb) => {
+        Book.find({ belongs_to_year: req.params.year }, cb).sort("createdAt");
       },
-      'allShows': (cb) => {
-        Show.find({ 'belongs_to_year': req.params.year }, cb).sort('createdAt');
+      allShows: (cb) => {
+        Show.find({ belongs_to_year: req.params.year }, cb).sort("createdAt");
       },
     },
     (err, allItems) => {
       if (err) return next(err);
       res.json(allItems);
-    },
+    }
   );
 };
 
-router.get('/year/:year', (req, res, next) => {
+router.get("/year/:year", (req, res, next) => {
   getAllitemsByYear(req, res, next);
 });
 

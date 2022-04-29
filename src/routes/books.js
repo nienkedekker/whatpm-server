@@ -1,12 +1,8 @@
-// TODO: fix linting errors
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
+import express from "express";
+import passport from "passport";
+import Book from "../models/Book";
 
-import express from 'express';
-import passport from 'passport';
-import Book from '../models/Book';
-
-require('../authentication/passport')(passport);
+require("../authentication/passport")(passport);
 
 const router = express.Router();
 
@@ -14,7 +10,7 @@ const router = express.Router();
  * GET all books
  * ex: host.com/api/books
  */
-router.get('/', (req, res, next) => {
+router.get("/", (req, res, next) => {
   Book.find((err, books) => {
     if (err) return next(err);
     res.json(books);
@@ -25,7 +21,7 @@ router.get('/', (req, res, next) => {
  * GET a single book by ID
  * ex: host.com/api/books/123456
  */
-router.get('/:id', (req, res, next) => {
+router.get("/:id", (req, res, next) => {
   Book.findById(req.params.id, (err, book) => {
     if (err) return next(err);
     res.json(book);
@@ -36,11 +32,13 @@ router.get('/:id', (req, res, next) => {
  * GET all books belonging to a given year
  * ex: host.com/api/books/year/2017
  */
-router.get('/year/:year', (req, res, next) => {
-  Book.find({ belongs_to_year: req.params.year }).sort('createdAt').find((err, books) => {
-    if (err) return next(err);
-    res.json(books);
-  });
+router.get("/year/:year", (req, res, next) => {
+  Book.find({ belongs_to_year: req.params.year })
+    .sort("createdAt")
+    .find((err, books) => {
+      if (err) return next(err);
+      res.json(books);
+    });
 });
 
 /**
@@ -48,14 +46,14 @@ router.get('/year/:year', (req, res, next) => {
  * Authenticated requests only
  */
 router.post(
-  '/',
-  passport.authenticate('jwt', { session: false }),
+  "/",
+  passport.authenticate("jwt", { session: false }),
   (req, res, next) => {
     Book.create(req.body, (err, book) => {
       if (err) return next(err);
       res.json(book);
     });
-  },
+  }
 );
 
 /**
@@ -63,14 +61,19 @@ router.post(
  * Authenticated requests only
  */
 router.put(
-  '/:id',
-  passport.authenticate('jwt', { session: false }),
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
   (req, res, next) => {
-    Book.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }, (err, book) => {
-      if (err) return next(err);
-      res.json(book);
-    });
-  },
+    Book.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { runValidators: true },
+      (err, book) => {
+        if (err) return next(err);
+        res.json(book);
+      }
+    );
+  }
 );
 
 /**
@@ -78,14 +81,14 @@ router.put(
  * Authenticated requests only
  */
 router.delete(
-  '/:id',
-  passport.authenticate('jwt', { session: false }),
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
   (req, res, next) => {
     Book.findByIdAndRemove(req.params.id, req.body, (err, book) => {
       if (err) return next(err);
       res.json(book);
     });
-  },
+  }
 );
 
 export default router;

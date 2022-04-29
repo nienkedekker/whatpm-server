@@ -4,17 +4,12 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: 'airbnb-base',
+  extends: ["eslint:recommended", "plugin:import/recommended", "prettier"],
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module',
+    sourceType: "module",
   },
   rules: {
-    'no-console': 0,
-    indent: ['error', 2],
-    'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
-    semi: ['error', 'always'],
-    'max-len': 0,
+    "import/no-unresolved": [2, { commonjs: true, amd: true }],
   },
 };
