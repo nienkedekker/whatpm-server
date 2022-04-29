@@ -1,8 +1,3 @@
-// TODO: fix linting errors
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
-/* eslint-disable quote-props */
-
 import express from "express";
 import async from "async";
 
