@@ -13,6 +13,7 @@
     "build": "babel ./src --out-dir dist"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/cli": "^7.16.8",
     "@babel/core": "^7.16.7",
     "@babel/node": "^7.16.8",
@@ -39,7 +40,6 @@
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.17.0",
     "chai": "^4.3.6",
     "eslint": "^8.14.0",
     "eslint-config-airbnb-base": "^15.0.0",
