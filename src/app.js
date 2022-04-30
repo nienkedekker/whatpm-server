@@ -18,8 +18,8 @@ require("dotenv").config();
 
 const app = express();
 
-const corsOriginDevelopment = "http://localhost:8080";
-const corsOriginProduction = ["https://www.what.pm", "https://what.pm"];
+const corsOriginDevelopment = ["http://localhost:8080", "https://whatpm-v2.vercel.app"];
+const corsOriginProduction = ["https://www.what.pm", "https://what.pm", "https://whatpm-v2.vercel.app"];
 
 app.use(
   cors({
